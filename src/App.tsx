@@ -21,18 +21,27 @@ function App() {
 // }
 
 useEffect(() => {
-  // Инициализация WebApp
+  // Убедимся, что Telegram WebApp доступен
+  if (window.Telegram) {
+    const webApp = window.Telegram.WebApp;
 
+    // Инициализация WebApp
+    webApp.ready();
 
-  const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
+    // Получение информации о пользователе
+    const user = webApp.initDataUnsafe.user;
 
-  if (initDataUnsafe && initDataUnsafe.user && initDataUnsafe.user.username) {
-    setFirstName(initDataUnsafe.user.username); // Установка username в состояние
+    if (user) {
+      setFirstName("User ID:"+ user.id);
+      setFirstName("Username:"+ user.username);
+
+    } else {
+      console.log("Пользователь не авторизован.");
+    }
   } else {
-    setFirstName("Username не установлен");
+    console.warn("Telegram WebApp API недоступен.");
   }
-}, []);
-
+}, []); // Пустой массив за
 
   return (
     <div className="App">
