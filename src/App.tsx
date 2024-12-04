@@ -1,24 +1,26 @@
 import  { useEffect, useState } from 'react';
 
 import './App.css';
+import { user } from './types';
+import { fetchPostUser } from './api';
 
-
-
-// type user = {
-//   tgId:string,
-//   firstName:string,
-//   secondName:string
-// }
 function App() {
-  // const [tgId, setIgId] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [secondName, setSecondName] = useState('');
+ const [telegramId, setTelegramId] = useState<string>('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [secondName, setSecondName] = useState<string>('');
 
-// const handleReg = ()=>{
-//   // const object:user= {
-//   //   // tgId:windo
-//   // }
-// }
+
+const regPerson = async () => {
+  const person:user = {
+    tgId :telegramId,
+    firstName : firstName,
+    secondName: secondName
+  }
+  fetchPostUser(person);
+};
+
+
+
 
 useEffect(() => {
   // Убедимся, что Telegram WebApp доступен
@@ -32,8 +34,7 @@ useEffect(() => {
     const user = webApp.initDataUnsafe.user;
 
     if (user) {
-      setFirstName(String(user.id));
-      setSecondName(String(user.username));
+      setTelegramId(String(user.id));
 
     } else {
       console.log("Пользователь не авторизован.");
@@ -49,16 +50,16 @@ useEffect(() => {
 <p className='mainTitle'>Регистрация на мероприятие</p>
   <div>
     <p>username:{firstName}</p>
-      <p>Введи имя</p>
+
       <input onChange={(value)=>setFirstName(value.target.value as unknown as string)} className='input'></input></div>
       <div>
    
       <p>Введи Фамилию</p>
       <p>Введи имя</p>
-      <p>{secondName}</p>
+  
       <input onChange={(value)=>setSecondName(value.target.value as unknown as string)} className='input'></input>
       </div>
-      <button className='button'>Зарегестрироваться</button>
+      <button onClick={()=>regPerson()} className='button'>Зарегестрироваться</button>
       </div>
     </div>
   );
