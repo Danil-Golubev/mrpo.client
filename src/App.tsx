@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import  { useEffect, useState } from 'react';
+
 import './App.css';
 
 
 
-type user = {
-  tgId:string,
-  firstName:string,
-  secondName:string
-}
+// type user = {
+//   tgId:string,
+//   firstName:string,
+//   secondName:string
+// }
 function App() {
-  const [tgId, setIgId] = useState('');
+  // const [tgId, setIgId] = useState('');
   const [firstName, setFirstName] = useState('');
   const [secondName, setSecondName] = useState('');
 
-const handleReg = ()=>{
-  // const object:user= {
-  //   // tgId:windo
-  // }
-}
+// const handleReg = ()=>{
+//   // const object:user= {
+//   //   // tgId:windo
+//   // }
+// }
 
 useEffect(() => {
   // Инициализация WebApp
@@ -39,12 +39,14 @@ useEffect(() => {
 <div className='regList'>
 <p className='mainTitle'>Регистрация на мероприятие</p>
   <div>
+    <p>username:{firstName}</p>
       <p>Введи имя</p>
       <input onChange={(value)=>setFirstName(value.target.value as unknown as string)} className='input'></input></div>
       <div>
    
       <p>Введи Фамилию</p>
       <p>Введи имя</p>
+      <p>{secondName}</p>
       <input onChange={(value)=>setSecondName(value.target.value as unknown as string)} className='input'></input>
       </div>
       <button className='button'>Зарегестрироваться</button>
