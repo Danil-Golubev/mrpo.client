@@ -32,8 +32,8 @@ useEffect(() => {
     const user = webApp.initDataUnsafe.user;
 
     if (user) {
-      setFirstName("User ID:"+ user.id);
-      setFirstName("Username:"+ user.username);
+      setFirstName(String(user.id));
+      setSecondName(String(user.username));
 
     } else {
       console.log("Пользователь не авторизован.");
