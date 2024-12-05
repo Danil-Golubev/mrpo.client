@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import  { useCallback, useEffect, useState } from 'react';
 
 import './App.css';
 import { user } from './types';
@@ -23,14 +23,14 @@ const regPerson = async () => {
 };
 
 
-const checkReg = async ()=>{
+const checkReg =  useCallback(async ()=>{
   const obj = { tgId: telegramId }
 const result = await fetchCheckReg(obj)
 if(Boolean(result.found)){
   setIsReg(true)
   setUserName(result.item.firstName)
 }
-}
+},[telegramId])
 
 
 
@@ -57,7 +57,7 @@ useEffect(() => {
   }
   checkReg();
 
-}, []); 
+}, [checkReg]); 
 
 
 if(isReg === true){
