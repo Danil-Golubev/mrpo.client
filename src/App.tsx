@@ -9,7 +9,7 @@ function App() {
   const [isReg, setIsReg] = useState<Boolean>(false);
   const [isScanned, setIsScanned] = useState<Boolean>(false);
 const [userName, setUserName] = useState<string>('')
- const [telegramId, setTelegramId] = useState<string>(''); //124142
+ const [telegramId, setTelegramId] = useState<string>('124142'); //124142
   const [firstName, setFirstName] = useState<string>('');
   const [secondName, setSecondName] = useState<string>('');
 
@@ -31,11 +31,11 @@ const result = await fetchCheckReg(obj)
 if(Boolean(result.found)){
   setIsReg(true)
   setUserName(result.item.firstName)
+  if(result.item.isScanned){
+    setIsScanned(true)
+  }
 }
-if(Boolean(result.item.isScanned)){
-  setIsScanned(true)
 
-}
 },[telegramId])
 
 
@@ -66,6 +66,13 @@ useEffect(() => {
 }, [checkReg]); 
 
 
+if(isScanned === true){
+  return(<div>
+ <p className='mainTitle'>Кажется твой QR код отсканирован</p>
+
+  </div>)
+}
+
 if(isReg === true){
 return(<div>
 <div className="App">
@@ -83,12 +90,7 @@ return(<div>
 </div>)
 }
 
-if(isScanned === true){
-  return(<div>
- <p className='mainTitle'>Кажется твой QR код отсканирован</p>
 
-  </div>)
-}
 
   return (
     <div className="App">
