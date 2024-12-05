@@ -8,7 +8,7 @@ function App() {
 
   const [isReg, setIsReg] = useState<Boolean>(false);
 const [userName, setUserName] = useState<string>('')
- const [telegramId, setTelegramId] = useState<string>('124142'); //124142
+ const [telegramId, setTelegramId] = useState<string>(''); //124142
   const [firstName, setFirstName] = useState<string>('');
   const [secondName, setSecondName] = useState<string>('');
 
