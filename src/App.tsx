@@ -7,6 +7,7 @@ import { QRCodeCanvas } from "qrcode.react"; // Импорт компонент�
 function App() {
 
   const [isReg, setIsReg] = useState<Boolean>(false);
+  const [isScanned, setIsScanned] = useState<Boolean>(false);
 const [userName, setUserName] = useState<string>('')
  const [telegramId, setTelegramId] = useState<string>(''); //124142
   const [firstName, setFirstName] = useState<string>('');
@@ -26,9 +27,14 @@ const regPerson = async () => {
 const checkReg =  useCallback(async ()=>{
   const obj = { tgId: telegramId }
 const result = await fetchCheckReg(obj)
+
 if(Boolean(result.found)){
   setIsReg(true)
   setUserName(result.item.firstName)
+}
+if(Boolean(result.item.isScanned)){
+  setIsScanned(true)
+
 }
 },[telegramId])
 
@@ -62,7 +68,6 @@ useEffect(() => {
 
 if(isReg === true){
 return(<div>
-
 <div className="App">
       {/* <div>Helo fren: {username}</div> Отображаем username */}
       <div className='regList'>
@@ -76,6 +81,13 @@ return(<div>
     </div>
 
 </div>)
+}
+
+if(isScanned === true){
+  return(<div>
+ <p className='mainTitle'>Кажется твой QR код отсканирован</p>
+
+  </div>)
 }
 
   return (
