@@ -9,7 +9,7 @@ function App() {
   const [isReg, setIsReg] = useState<Boolean>(false);
   const [isScanned, setIsScanned] = useState<Boolean>(false);
 const [userName, setUserName] = useState<string>('')
- const [telegramId, setTelegramId] = useState<string>(''); //124142
+ const [telegramId, setTelegramId] = useState<string>('142124124'); //124142
   const [firstName, setFirstName] = useState<string>('');
   const [secondName, setSecondName] = useState<string>('');
 
@@ -41,6 +41,7 @@ if(Boolean(result.found)){
 
 
 useEffect(() => {
+  const getData =()=>{
   // Убедимся, что Telegram WebApp доступен
   if (window.Telegram) {
     const webApp = window.Telegram.WebApp;
@@ -62,7 +63,13 @@ useEffect(() => {
     console.warn("Telegram WebApp API недоступен.");
   }
   checkReg();
-
+  }
+  getData()
+  const interval  = setInterval(() => {
+    getData()
+  
+  }, 3*1000);
+  return ()=>clearInterval(interval)
 }, [checkReg]); 
 
 
