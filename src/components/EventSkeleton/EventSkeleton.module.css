@@ -1,0 +1,140 @@
+.mainBlock {
+    min-height: 73px;
+    width: 100%;
+    background-color: white; /* Белый фон контейнера */
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row; /* Изменено с flex на row */
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+    position: relative; /* Для анимации */
+    overflow: hidden; /* Скрытие анимации за пределами блока */
+  }
+  
+  .imageBlock {
+    border-radius: 14px;
+    background-color: rgb(220, 220, 220); /* Цвет фона для скелетона */
+    width: 48px;
+    height: 48px;
+    position: relative; /* Для анимации */
+    overflow: hidden; /* Скрытие анимации за пределами блока */
+  }
+  
+  /* Скелетон-анимация для imageBlock */
+  .imageBlock::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -48px; /* Начинаем с левой стороны блока */
+    width: 48px;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(200, 200, 200, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: skeleton-loading 1.5s ease-in-out infinite; /* Увеличена длительность анимации */
+    border-radius: inherit; /* Повторяем закругление краев */
+  }
+  
+  /* Анимация скелетона */
+  @keyframes skeleton-loading {
+    0% {
+      left: -48px; /* Начинаем с левой стороны блока */
+    }
+    50% {
+      left: 48px; /* В середине анимации */
+    }
+    100% {
+      left: 48px; /* Завершаем внутри блока */
+    }
+  }
+  
+  .textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: auto;
+  }
+  
+  .date {
+    width: 100px;
+    height: 15px;
+    background-color: rgb(220, 220, 220); /* Цвет фона для скелетона */
+    border-radius: 14px;
+    position: relative; /* Для анимации */
+    overflow: hidden; /* Скрытие анимации за пределами блока */
+  }
+  
+  /* Скелетон-анимация для date */
+  .date::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100px; /* Начинаем с левой стороны блока */
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(200, 200, 200, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: skeleton-loading-date 1.5s ease-in-out infinite; /* Увеличена длительность анимации */
+    border-radius: inherit; /* Повторяем закругление краев */
+  }
+  
+  /* Анимация для date */
+  @keyframes skeleton-loading-date {
+    0% {
+      left: -100px; /* Начинаем с левой стороны блока */
+    }
+    50% {
+      left: 100px; /* В середине анимации */
+    }
+    100% {
+      left: 100px; /* Завершаем внутри блока */
+    }
+  }
+  
+  .title {
+    width: 160px;
+    height: 15px;
+    background-color: rgb(220, 220, 220); /* Цвет фона для скелетона */
+    border-radius: 14px;
+    position: relative; /* Для анимации */
+    overflow: hidden; /* Скрытие анимации за пределами блока */
+  }
+  
+  /* Скелетон-анимация для title */
+  .title::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -160px; /* Начинаем с левой стороны блока */
+    width: 160px;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(200, 200, 200, 0.6) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: skeleton-loading-title 1s ease-in-out infinite; /* Увеличена длительность анимации */
+    border-radius: inherit; /* Повторяем закругление краев */
+  }
+  
+  /* Анимация для title */
+  @keyframes skeleton-loading-title {
+    0% {
+      left: -160px; /* Начинаем с левой стороны блока */
+    }
+    50% {
+      left: 160px; /* В середине анимации */
+    }
+    100% {
+      left: 160px; /* Завершаем внутри блока */
+    }
+  }
