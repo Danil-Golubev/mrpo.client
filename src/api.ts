@@ -17,6 +17,6 @@ export const fetchCheckReg= async (req:any) => {
 
 
 export const fetchGetEvents= async () => {
-	const res = await axios.get('http://localhost:4444/events');
+	const res = await axios.get('https://mrpo-backend.onrender.com/events');
 	return res.data;
 };  
