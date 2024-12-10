@@ -1,31 +1,44 @@
 import  { useCallback, useEffect, useState } from 'react';
 
 import './Event.css';
-import { user } from '../../types';
-import { fetchCheckReg, fetchPostUser } from '../../api';
+import { user, event } from '../../types';
+import { fetchCheckReg, fetchGetEvent, fetchPostUser } from '../../api';
 import { QRCodeCanvas } from "qrcode.react"; // Импорт компонента для QR-кода
-export const Event = ()=> {
+import { useParams } from 'react-router-dom';
 
+export const Event = ()=> {
+  const [event, setEvent] = useState<event>({} as event);
+  const [loading, setLoading] = useState<Boolean>(false);
   const [isReg, setIsReg] = useState<Boolean>(false);
   const [isScanned, setIsScanned] = useState<Boolean>(false);
 const [userName, setUserName] = useState<string>('')
- const [telegramId, setTelegramId] = useState<string>(''); //124142
+ const [telegramId, setTelegramId] = useState<string>('124142'); //124142
   const [firstName, setFirstName] = useState<string>('');
   const [secondName, setSecondName] = useState<string>('');
-
+   const {id} = useParams()
 
 const regPerson = async () => {
-  const person:user = {
+  const user:user = {
     tgId :telegramId,
     firstName : firstName,
     secondName: secondName
   }
-  fetchPostUser(person);
+  const event = {
+    id:id as string
+  }
+  fetchPostUser({user, event})
+ 
 };
+
+const handleEvent = async()=>{
+  const data = await fetchGetEvent(id as string)
+  setEvent(data)
+  setLoading(true)
+}
 
 
 const checkReg =  useCallback(async ()=>{
-  const obj = { tgId: telegramId }
+  const obj = { tgId: telegramId, id:id as string }
 const result = await fetchCheckReg(obj)
 
 if(Boolean(result.found)){
@@ -39,8 +52,14 @@ if(Boolean(result.found)){
 },[telegramId])
 
 
+useEffect(()=>{
+  handleEvent()
+},[])
+
 
 useEffect(() => {
+  
+
   const getData =()=>{
   // Убедимся, что Telegram WebApp доступен
   if (window.Telegram) {
@@ -70,7 +89,8 @@ useEffect(() => {
   
   }, 3*1000);
   return ()=>clearInterval(interval)
-}, [checkReg]); 
+
+}, [checkReg, isReg]); 
 
 
 if(isScanned === true){
@@ -97,15 +117,21 @@ return(<div>
 </div>)
 }
 
-
+if(loading === false){
+  return(<div>123</div>)
+}
 
   return (
     <div className="App">
 
 <div className='regList'>
-<p className='mainTitle'>Регистрация на мероприятие</p>
   <div>
+<p className='mainTitle'>Регистрация на мероприятие {event.title as string}</p>
+<p className='secondTitle'>Описание:{event.description}</p>
 
+</div>
+
+  <div>
   <p>Введи имя</p>
       <input onChange={(value)=>setFirstName(value.target.value as unknown as string)} className='input'></input></div>
       <div>
@@ -114,6 +140,7 @@ return(<div>
       <input onChange={(value)=>setSecondName(value.target.value as unknown as string)} className='input'></input>
       </div>
       <button onClick={()=>regPerson()} className='button'>Зарегестрироваться</button>
+      <p className='secondTitle'>Количество участников:{event.members.length}</p>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { fetchGetEvents } from "../../api"
-import './EventList.css'
+import style from './EventList.module.css'
 import {event} from '../../types'
-import { Link } from "react-router-dom"
+
 import { EventSkeleton } from "../../components/EventSkeleton/EventSkeleton"
+import { EventBlock } from "../../components/EventBlock/EventBlock"
 export const EventList =()=>{
 
     const [events, setEvents] = useState<event[]>([]);
@@ -23,7 +24,7 @@ setEvents(data)
     if (events.length === 0) {
         return (
           <>
-            <div className='list'>
+         <div className={style.list}>
               <EventSkeleton />
               <EventSkeleton />
               <EventSkeleton />
@@ -34,23 +35,14 @@ setEvents(data)
 
     return(<div>
 
-<div className='mainTitle'>Список мероприятий</div>
-<div className='mainBlock'>
-        <div className='list'>
+<div className={style.mainTitle}>Список мероприятий</div>
+
+        <div className={style.list}>
         {events.map((event:event)=>(
-         <Link to={`/events/${event._id}`} key = {event._id}>
-         <div className='mainBlock'>
-           <div className='imageBlock'>
-             <div className='image' />
-           </div>
-           <div className='textBlock'>
-             <div className='date'>Колличество участников: {event.members.length}</div>
-             <div className='title'>{event.title}</div>
-           </div>
+    <EventBlock _id={event._id} title={event.title} description={event.description} members={[]}/>
+      ))}
          </div>
-       </Link>))}
-         </div>
-         </div>
+ 
     </div>)
 
 }
