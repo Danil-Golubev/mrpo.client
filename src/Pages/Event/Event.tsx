@@ -30,11 +30,13 @@ const regPerson = async () => {
  
 };
 
-const handleEvent = async()=>{
+
+const handleEvent = useCallback(async () => {
   const data = await fetchGetEvent(id as string)
   setEvent(data)
   setLoading(true)
-}
+}, [id]); // Пустой массив зависимостей для предотвращения пересоздания
+
 
 
 const checkReg =  useCallback(async ()=>{
@@ -49,12 +51,12 @@ if(Boolean(result.found)){
   }
 }
 
-},[telegramId])
+},[id, telegramId])
 
 
 useEffect(()=>{
   handleEvent()
-},[])
+},[handleEvent, loading])
 
 
 useEffect(() => {
