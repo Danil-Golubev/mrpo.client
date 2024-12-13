@@ -29,7 +29,10 @@ export const Registration = ()=>{
 
 
       useEffect(() => {
+  
 
+        const getData =()=>{
+        // Убедимся, что Telegram WebApp доступен
         if (window.Telegram) {
           const webApp = window.Telegram.WebApp;
       
@@ -49,15 +52,17 @@ export const Registration = ()=>{
         } else {
           console.warn("Telegram WebApp API недоступен.");
         }
-      
         handleIsReg();
-      
+        }
+        getData()
+        const interval  = setInterval(() => {
+          getData()
+        
+        }, 3*1000);
+        return ()=>clearInterval(interval)
       
       }, [handleIsReg, isReg]); 
       
-
-
-
 
 return(
 <div className="App">
