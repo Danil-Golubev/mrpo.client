@@ -53,7 +53,7 @@ export const MainPage = ()=>{
       )
       
 if(!isReg){
-    return(<Registration tgId={telegramId}/>)
+    return(<Registration/>)
 }
     
 

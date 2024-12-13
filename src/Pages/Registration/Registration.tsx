@@ -1,16 +1,24 @@
-import { useState } from "react";
-import { fetchPostUser } from "../../api";
+import { useCallback, useEffect, useState } from "react";
+import { fetchGetIsReg, fetchPostUser } from "../../api";
 import {user} from '../../types'
 
-export const Registration = ({tgId}:{tgId:string})=>{
+export const Registration = ()=>{
 
+  const [telegramId, setTelegramId] = useState<string>(''); //124142
+  const [isReg, setIsReg] = useState<boolean>(false); //124142
     const [firstName, setFirstName] = useState<string>('');
     const [secondName, setSecondName] = useState<string>('');
 
     
+    const handleIsReg = useCallback(async()=>{
+        const data = await fetchGetIsReg({tgId:telegramId})
+        setIsReg(data)
+    },[telegramId])
+
+
     const regPerson = async () => {
         const user:user = {
-          tgId :tgId,
+          tgId :telegramId,
           firstName : firstName,
           secondName: secondName
         }
@@ -18,6 +26,38 @@ export const Registration = ({tgId}:{tgId:string})=>{
        
       };
       
+
+
+      useEffect(() => {
+
+        if (window.Telegram) {
+          const webApp = window.Telegram.WebApp;
+      
+          // Инициализация WebApp
+          webApp.ready();
+      
+          // Получение информации о пользователе
+          const user = webApp.initDataUnsafe.user;
+      
+          if (user) {
+            setTelegramId(String(user.id));
+            
+      
+          } else {
+            console.log("Пользователь не авторизован.");
+          }
+        } else {
+          console.warn("Telegram WebApp API недоступен.");
+        }
+      
+        handleIsReg();
+      
+      
+      }, [handleIsReg, isReg]); 
+      
+
+
+
 
 return(
 <div className="App">
