@@ -2,6 +2,7 @@ declare global {
     interface Window {
       Telegram: {
         WebApp: {
+          BackButton: any;
           ready: () => void;
           close: () => void;
           initData: string;

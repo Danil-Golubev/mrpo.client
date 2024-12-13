@@ -8,5 +8,7 @@ export type event = {
   _id:string,
   title:string,
   description:string,
+  extDescription:string,
+  imageUrl:string,
   members:user[]
 }

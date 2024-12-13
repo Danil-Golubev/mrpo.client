@@ -39,7 +39,7 @@ setEvents(data)
 
         <div className={style.list}>
         {events.map((event:event)=>(
-    <EventBlock _id={event._id} title={event.title} description={event.description} members={[]}/>
+    <EventBlock imageUrl={event.imageUrl} _id={event._id} title={event.title} description={event.description} members={[]} extDescription={""}/>
       ))}
          </div>
  

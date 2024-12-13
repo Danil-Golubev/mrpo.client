@@ -12,8 +12,7 @@
   
   .imageBlock {
     overflow: hidden;
-    border-radius: 14px;
-    background-color: black;
+    background-color: white;
     width: 48px;
     height: 48px;
   }

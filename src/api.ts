@@ -1,17 +1,15 @@
 import axios from 'axios';
 import { user } from './types';
-export const fetchPostUser= async (req:{ user:user, event:{id:string}}) => {
-    // const data = {
-    // tgId:req.user.tgId,
-    // firstName:req.user.firstName,
-    // secondName:req.user.secondName}
+
+const URL = 'https://mrpo-backend.onrender.com'
+export const fetchPostUser= async (req:user) => {
 	const res = await axios.post('https://mrpo-backend.onrender.com/reg-user', req);
 	return res.data;
 };  
 
 
-export const fetchCheckReg= async (req:{tgId:string, id:string}) => {
-	const res = await axios.post('https://mrpo-backend.onrender.com/checkUserInEvent', req);
+export const fetchCheckReg= async (req:{tgId:string, eventId:string}) => {
+	const res = await axios.post(`${URL}/checkUserInEvent`, req);
 	return res.data;
 };  
 
@@ -23,5 +21,15 @@ export const fetchGetEvents= async () => {
 
 export const fetchGetEvent= async (id:string) => {
 	const res = await axios.get(`https://mrpo-backend.onrender.com/events/${id}`);
+	return res.data;
+};  
+
+export const fetchGetIsReg= async (req:{tgId:string}) => {
+	const res = await axios.post(`${URL}/isReg`, req);
+	return res.data;
+};  
+
+export const fetchRegToEvent= async (req:{tgId:string, eventId:string}) => {
+	const res = await axios.post(`${URL}/reg-toevent`, req);
 	return res.data;
 };  
