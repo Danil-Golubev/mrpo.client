@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchGetIsReg, fetchPostUser } from "../../api";
 import {user} from '../../types'
+import { MainPage } from "../MainPage";
 
 export const Registration = ()=>{
 
@@ -63,6 +64,10 @@ export const Registration = ()=>{
       
       }, [handleIsReg, isReg]); 
       
+
+      if(isReg){
+        return(<MainPage/>)
+      }
 
 return(
 <div className="App">
