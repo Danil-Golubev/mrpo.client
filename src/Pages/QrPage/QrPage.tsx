@@ -8,7 +8,7 @@ export const QrPage = ()=>{
 
   const [isReg, setIsReg] = useState<Boolean>(false);
   const [isScanned, setIsScanned] = useState<Boolean>(false);
- const [telegramId, setTelegramId] = useState<string>('124142'); //124142
+ const [telegramId, setTelegramId] = useState<string>(''); //124142
    const {id} = useParams()
 
 
@@ -75,7 +75,7 @@ if(isScanned){
         <p className='mainTitle'>Привет! покажи этот QR код на входе</p>
    
         <div className='mainBlock'>
-            <QRCodeCanvas value={telegramId} size={200} /> 
+            <QRCodeCanvas value={[telegramId,id as string]} size={200} /> 
          
         </div>
         </div>
